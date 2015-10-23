@@ -12,7 +12,7 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *name;
 @property (nonatomic, weak) IBOutlet UILabel *twitterHandle;
-@property (nonatomic, weak) IBOutlet UIImageView *profileImage;
+@property (nonatomic, strong) IBOutlet UIImageView *profileImage;
 @property (nonatomic, weak) IBOutlet UILabel *time;
 @property (nonatomic, weak) IBOutlet UILabel *content;
 @property (nonatomic, weak) IBOutlet UILabel *favoriteCount;

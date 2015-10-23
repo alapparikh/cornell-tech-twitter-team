@@ -160,14 +160,30 @@
 //        cell = [[TweetViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
 //    }
     
-    // Configure Cell
+    /* 
+     *Configure Cell
+     */
     Tweet *tweet = latestTweetSet[indexPath.row];
     cell.name.text = tweet.name;
     cell.time.text = [tweet.createdAt substringWithRange:NSMakeRange(4, 6)];
     cell.twitterHandle.text = tweet.twitterHandle;
+    
+    // Tweet content
+//    UIFont *contentFont = [UIFont fontWithName:@"System" size:13.0];
+//    NSArray *keys = [NSArray arrayWithObjects:NSFontAttributeName, nil];
+//    NSArray *objects = [NSArray arrayWithObjects:contentFont, nil];
+//    NSDictionary *attributes = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+//    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:tweet.content attributes:attributes];
+//    cell.content.attributedText= attrString;
     cell.content.text = tweet.content;
     cell.retweetCount.text = [tweet.retweetCount stringValue];
     cell.favoriteCount.text = [tweet.favoriteCount stringValue];
+    
+    // Load profile image
+    NSURL *url = [NSURL URLWithString:tweet.profileImage];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    //cell.profileImage.image = [[UIImageView alloc] initWithImage:[UIImage imageWithData:data]];
+    cell.profileImage.image = [UIImage imageWithData:data];
     NSLog(@"cellForRowAtIndexPath called");
     
     return cell;
