@@ -16,7 +16,14 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-
+# Python
+.env
+*.swp
+*.swo
+*.pyc
+.DS_Store
+.download_cache
+*.egg-info
 # CocoaPods
 #
 # We recommend against adding the Pods directory to your .gitignore. However
