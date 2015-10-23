@@ -11,6 +11,7 @@ setup_args = dict(
         'pymongo==2.8.0',
         'mongoengine==0.8.6',
         'blinker>=0.0.0',
+        'TwitterSearch>=0.0.0', 
         # timezone
         'pytz>=0.0.0',
         'functools32>=0.0.0',

@@ -8,6 +8,14 @@
 
 from pytz import timezone
 
+
+#Variables that contains the user credentials to access Twitter API 
+Taccess_token = "553946988-eHSrOa4LjhkYtzf1YZI8quJ8TUGcYMonwLk46dcl"
+Taccess_token_secret = "Dx4hbdGULvF5BCbCauvS5qUdc2DZb8w5fYsWM6CMHOnjv"
+Tconsumer_key = "iTu865KvVPOMVrpuIAKupH78k"
+Tconsumer_secret = "jvQXjdWUvIUuoZJLzoGgWQe7sK6NaWS4XIGVWdAUdumuqPNghj"
+
+
 TIMEZONE = timezone('US/Eastern')
 
 USERNAME_LEN_MIN = 1
