@@ -7,5 +7,6 @@ target 'twitterPrototype' do
 pod 'GoogleMaps'
 pod 'AFNetworking', '~> 2.5'
 pod 'Mantle', '~> 2.0'
+pod 'Toast', '~> 2.4'
 
 end

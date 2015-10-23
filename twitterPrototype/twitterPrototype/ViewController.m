@@ -13,6 +13,7 @@
 #import <Mantle/Mantle.h>
 #import "Tweet.h"
 #import "TweetViewCell.h"
+#import <Toast/UIView+Toast.h>
 @import GoogleMaps;
 
 @interface ViewController () <CLLocationManagerDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -135,7 +136,13 @@
         latestTweetSet = [[self deserializeAppInfosFromJSON:responseArray] mutableCopy];
         NSLog(@"tweetset: %@", latestTweetSet);
         
-        [self.tweetsTableView reloadData];
+        if ([latestTweetSet count] == 0) {
+            [self.view makeToast:@"Sorry! No results found."];
+        }
+        else {
+             [self.tweetsTableView reloadData];
+        }
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];

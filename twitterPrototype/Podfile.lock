@@ -24,15 +24,18 @@ PODS:
   - Mantle (2.0.5):
     - Mantle/extobjc (= 2.0.5)
   - Mantle/extobjc (2.0.5)
+  - Toast (2.4)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - GoogleMaps
   - Mantle (~> 2.0)
+  - Toast (~> 2.4)
 
 SPEC CHECKSUMS:
   AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
   GoogleMaps: 134bcf57e8d489efbc0c29d532ed421554fabdb2
   Mantle: 1912395033f601de5adc8ee91e48f46e4c7051ad
+  Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
 
 COCOAPODS: 0.38.2
