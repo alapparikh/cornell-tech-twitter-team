@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "WebViewController.h"
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "AFNetworking.h"
@@ -14,6 +15,7 @@
 #import "Tweet.h"
 #import "TweetViewCell.h"
 #import <Toast/UIView+Toast.h>
+#import "WebViewController.h"
 @import GoogleMaps;
 
 @interface ViewController () <CLLocationManagerDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -31,6 +33,8 @@
     
     NSString *placeName;
     NSMutableArray *latestTweetSet;
+    
+    NSURL *tweetURL;
 }
 
 - (void)viewDidLoad {
@@ -139,9 +143,8 @@
         if ([latestTweetSet count] == 0) {
             [self.view makeToast:@"Sorry! No results found."];
         }
-        else {
-             [self.tweetsTableView reloadData];
-        }
+        
+        [self.tweetsTableView reloadData];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -189,6 +192,19 @@
     return cell;
 }
 
+// Launches web view with relevant Tweet
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Tweet *tweet = latestTweetSet[indexPath.row];
+    
+    NSMutableString *URLConstruction = [NSMutableString stringWithString:@"https://twitter.com/"];
+    [URLConstruction appendString:tweet.twitterHandle];
+    [URLConstruction appendString:@"/status/"];
+    [URLConstruction appendString:tweet.tweetId];
+    tweetURL = [NSURL URLWithString:URLConstruction];
+    
+    [self performSegueWithIdentifier:@"WebViewSegue" sender:self];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([latestTweetSet count] == 0) {
         self.emptyView.hidden = false;
@@ -201,6 +217,24 @@
     return [latestTweetSet count];
 }
 
+/*
+ SEGUE
+*/
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:@"WebViewSegue"])
+    {
+        // Get reference to the destination view controller
+        WebViewController *webViewController = [segue destinationViewController];
+        //UINavigationController *navController = [segue destinationViewController];
+        //WebViewController *webViewController = (WebViewController *)([navController viewControllers][0]);
+        
+        // Pass any objects to the view controller here, like...
+        [webViewController setURL:tweetURL];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
