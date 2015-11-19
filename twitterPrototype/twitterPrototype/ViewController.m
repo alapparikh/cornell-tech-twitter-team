@@ -17,7 +17,6 @@
 #import <Toast/UIView+Toast.h>
 #import "WebViewController.h"
 @import GoogleMaps;
-
 @interface ViewController () <CLLocationManagerDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tweetsTableView;
 @property (weak, nonatomic) IBOutlet UIView *emptyView;
@@ -30,6 +29,7 @@
     CLLocationCoordinate2D center;
     CLLocationCoordinate2D northEast;
     CLLocationCoordinate2D southWest;
+    
     
     NSString *placeName;
     NSMutableArray *latestTweetSet;
@@ -83,7 +83,6 @@
             NSLog(@"No place selected");
         }
     }];
-
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

@@ -5,7 +5,7 @@
 # $Author: He Zhang <mattzhang9[at]gmail[at]com>
 
 
-from tm import get_db
+from tw import get_db
 from config import *
 from util import *
 
