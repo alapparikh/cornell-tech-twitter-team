@@ -32,11 +32,14 @@
     CLLocationCoordinate2D center;
     CLLocationCoordinate2D northEast;
     CLLocationCoordinate2D southWest;
-    
-    
+    NSString *ServerIP;
+    AFHTTPRequestOperationManager *AFmanager;
     NSString *placeName;
     NSMutableArray *latestTweetSet;
     NSURL *tweetURL;
+    BOOL loadingData;
+    BOOL noMoreData;
+    int pace;
     
     // Decide whether to use gmsplacepicker or gmsmapview
     bool placePicker;
@@ -48,6 +51,11 @@
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.0 green:(172/255.0) blue:(237/255.0) alpha:1.0];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
+    ServerIP = @"http://162.243.149.41:54321/";
+    loadingData = false;
+    noMoreData = false;
+    pace = 20;
+    AFmanager = [AFHTTPRequestOperationManager manager];
     // User location
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -86,7 +94,7 @@
                 NSLog(@"Place address %@", place.formattedAddress);
                 NSLog(@"Place attributions %@", place.attributions.string);
                 placeName = [place.name stringByReplacingOccurrencesOfString:@" " withString:@""];
-                [self sendGETRequest];
+                [self loadMoreData];
             } else {
                 NSLog(@"No place selected");
             }
@@ -138,19 +146,19 @@
     return appInfos;
 }
 
-#pragma GET Requests
-/*
- * GET Requests
-*/
-
-- (void) sendGETRequest {
+- (void) loadMoreData {
+    if (loadingData || noMoreData) {
+        return;
+    }
+    loadingData = true;
     NSMutableString *GETAddress = [NSMutableString string];
-    [GETAddress appendString:@"http://162.243.149.41:54321/search/"];
+    [GETAddress appendString:[ServerIP stringByAppendingString: @"search/"]];
     [GETAddress appendString:placeName];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //NSDictionary *params = @{@"name": @"Chelsea Market"};
-    [manager GET:GETAddress parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [AFmanager GET:GETAddress
+        parameters:@{ @"begin" : [NSString stringWithFormat:@"%lu",(unsigned long)[latestTweetSet count]],
+                      @"end"   : [NSString stringWithFormat:@"%lu",(unsigned long)[latestTweetSet count] + pace]}
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         NSDictionary *responseDict = responseObject;
         NSArray *responseArray = [responseDict valueForKey:@"tweets"];
@@ -158,10 +166,14 @@
         NSLog(@"tweetset: %@", latestTweetSet);
         
         if ([latestTweetSet count] == 0) {
+            noMoreData = true;
             [self.view makeToast:@"Sorry! No results found."];
         }
-        
-        [self.tweetsTableView reloadData];
+        else {
+            int lastItem = [latestTweetSet count];
+            int
+            [self.tweetsTableView reloadData];
+        }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -171,14 +183,14 @@
 -(void)myTapping1 :(id) sender
 {
     UITapGestureRecognizer *gesture = (UITapGestureRecognizer *) sender;
-    NSLog(@"Tag = %d", gesture.view.tag);
+    NSLog(@"Tag = %ld", gesture.view.tag);
     NSLog(@"retweet");
 }
 
 -(void)myTapping2 :(id) sender
 {
     UITapGestureRecognizer *gesture = (UITapGestureRecognizer *) sender;
-    NSLog(@"Tag = %d", gesture.view.tag);
+    NSLog(@"Tag = %ld", gesture.view.tag);
     NSLog(@"favorite");
 }
 
@@ -194,7 +206,7 @@
 //        cell = [[TweetViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
 //    }
     
-    /* 
+    /*
      *Configure Cell
      */
     Tweet *tweet = latestTweetSet[indexPath.row];
