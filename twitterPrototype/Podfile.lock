@@ -20,6 +20,8 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - AFOAuth2Manager (2.2.0):
+    - AFNetworking/NSURLConnection (~> 2.2)
   - GoogleMaps (1.10.5)
   - Mantle (2.0.5):
     - Mantle/extobjc (= 2.0.5)
@@ -28,12 +30,14 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
+  - AFOAuth2Manager (~> 2.2.0)
   - GoogleMaps
   - Mantle (~> 2.0)
   - Toast (~> 2.4)
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  AFOAuth2Manager: 952eb62e8fd8022971e64c6e8fe28b9e999224af
   GoogleMaps: da51c62c338c2d9c47cdad470a0d1e0e4b8544e4
   Mantle: 1912395033f601de5adc8ee91e48f46e4c7051ad
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d

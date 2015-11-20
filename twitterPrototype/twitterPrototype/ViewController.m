@@ -187,16 +187,43 @@
 -(void)myTapping1 :(id) sender
 {
     UITapGestureRecognizer *gesture = (UITapGestureRecognizer *) sender;
-    NSLog(@"Tag = %ld", gesture.view.tag);
-    NSLog(@"retweet");
+    Tweet *tweet = latestTweetSet[gesture.view.tag];
+    //NSString *tid = tweet.tweetId;
+    NSMutableString *URLConstruction = [NSMutableString stringWithString:@"https://api.twitter.com/1.1/statuses/"];
+    [URLConstruction appendString:tweet.tweetId];
+    [URLConstruction appendString:@".json"];
+    
+    [AFmanager POST:URLConstruction
+         parameters:nil
+            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                NSDictionary *responseDict = responseObject;
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+            }];
 }
 
 -(void)myTapping2 :(id) sender
 {
     UITapGestureRecognizer *gesture = (UITapGestureRecognizer *) sender;
-    NSLog(@"Tag = %ld", gesture.view.tag);
-    NSLog(@"favorite");
+    Tweet *tweet = latestTweetSet[gesture.view.tag];
+    //NSString *tid = tweet.tweetId;
+    NSMutableString *URLConstruction = [NSMutableString stringWithString:@"https://api.twitter.com/1.1/favorites/create.json?id="];
+    [URLConstruction appendString:tweet.tweetId];
+    
+    [AFmanager POST:URLConstruction
+         parameters:nil
+            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                NSDictionary *responseDict = responseObject;
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+            }];
+    
 }
+
 
 /*
  DELEGATES
