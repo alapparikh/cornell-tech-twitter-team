@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ADC7B2FC1F37ACE52E56FC5D /* Pods_twitterPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC590D47CC291EAD136C66D /* Pods_twitterPrototype.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		ADC7B2FC1F37ACE52E56FC5D /* Pods_twitterPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC590D47CC291EAD136C66D /* Pods_twitterPrototype.framework */; };
 		E6066B691BFA76CC0038BDD6 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6066B681BFA76CC0038BDD6 /* MapViewController.m */; };
+		E60B4D101BFEB70600504754 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B4D0F1BFEB70600504754 /* Place.m */; };
 		E62AC1241BD9FA2200ADA2CE /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1231BD9FA2200ADA2CE /* Tweet.m */; };
 		E62AC1271BDA01EE00ADA2CE /* TweetUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1261BDA01EE00ADA2CE /* TweetUser.m */; };
 		E62AC12A1BDA020000ADA2CE /* TweetPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1291BDA020000ADA2CE /* TweetPlace.m */; };
@@ -52,6 +53,8 @@
 		D2F4624BC2D2783BB06C7AA2 /* Pods-twitterPrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitterPrototype.debug.xcconfig"; path = "Pods/Target Support Files/Pods-twitterPrototype/Pods-twitterPrototype.debug.xcconfig"; sourceTree = "<group>"; };
 		E6066B671BFA76CC0038BDD6 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		E6066B681BFA76CC0038BDD6 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		E60B4D0E1BFEB70600504754 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
+		E60B4D0F1BFEB70600504754 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		E62AC1221BD9FA2200ADA2CE /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
 		E62AC1231BD9FA2200ADA2CE /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
 		E62AC1251BDA01EE00ADA2CE /* TweetUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetUser.h; sourceTree = "<group>"; };
@@ -128,6 +131,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E60B4D111BFEDFC300504754 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		E62AC1211BD9C93000ADA2CE /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +147,8 @@
 				E62AC1261BDA01EE00ADA2CE /* TweetUser.m */,
 				E62AC1281BDA020000ADA2CE /* TweetPlace.h */,
 				E62AC1291BDA020000ADA2CE /* TweetPlace.m */,
+				E60B4D0E1BFEB70600504754 /* Place.h */,
+				E60B4D0F1BFEB70600504754 /* Place.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -175,6 +187,7 @@
 		E6E12BE81BD80E00007278DA /* twitterPrototype */ = {
 			isa = PBXGroup;
 			children = (
+				E60B4D111BFEDFC300504754 /* UI */,
 				E62AC12B1BDA128500ADA2CE /* View */,
 				E62AC1211BD9C93000ADA2CE /* Model */,
 				E6E12BEC1BD80E00007278DA /* AppDelegate.h */,
@@ -295,7 +308,7 @@
 				TargetAttributes = {
 					E6E12BE51BD80E00007278DA = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = 4397WNY7D6;
+						DevelopmentTeam = G6P7H83FK6;
 					};
 					E6E12BFE1BD80E00007278DA = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -417,6 +430,7 @@
 				E6E12BEE1BD80E00007278DA /* AppDelegate.m in Sources */,
 				E6066B691BFA76CC0038BDD6 /* MapViewController.m in Sources */,
 				E69452401BEB0BE2003CB664 /* WebViewController.m in Sources */,
+				E60B4D101BFEB70600504754 /* Place.m in Sources */,
 				E62AC1241BD9FA2200ADA2CE /* Tweet.m in Sources */,
 				E6E12BEB1BD80E00007278DA /* main.m in Sources */,
 				E62AC1301BDA13FD00ADA2CE /* TweetViewCell.m in Sources */,
@@ -492,7 +506,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alap Parikh (A3F3FB5QX8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alap Parikh (A3F3FB5QX8)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -535,7 +550,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alap Parikh (A3F3FB5QX8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alap Parikh (A3F3FB5QX8)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;

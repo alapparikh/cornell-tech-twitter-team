@@ -8,6 +8,8 @@
 
 #import "MapViewController.h"
 #import "AFNetworking.h"
+#import <Mantle/Mantle.h>
+#import "Place.h"
 @import GoogleMaps;
 
 @interface MapViewController () <GMSMapViewDelegate>
@@ -18,22 +20,24 @@
 @implementation MapViewController {
     //GMSMapView *mapView_;
     NSString *radius;
+    NSMutableArray *latestPlacesSet;
+    NSMutableDictionary *placesDict;
 }
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    // Set radius
-    radius = @"100";
-    // [self setRadius];
+    latestPlacesSet = [[NSMutableArray alloc] init];
+    placesDict = [[NSMutableDictionary alloc] initWithCapacity:20];
     
     // Create a GMSCameraPosition that tells the map to display the
     // coordinate -33.86,151.20 at zoom level 6.
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.center.latitude
                                                             longitude:self.center.longitude
                                                                  zoom:15];
+    
     self.mapView.camera = camera;
+    [self setRadius]; // Set radius
     self.mapView.myLocationEnabled = YES;
     
     // Map settings
@@ -44,9 +48,6 @@
     
     // Set delegate
     self.mapView.delegate = self;
-    
-    // Load places
-    [self sendPlacesGETRequest];
 }
 
 - (void) sendPlacesGETRequest {
@@ -65,8 +66,11 @@
     [manager GET:GETAddress parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *responseDict = responseObject;
-        NSLog(@"%@", responseDict);
-        NSLog(@"Number of results: %lu", (unsigned long)responseDict.count);
+        latestPlacesSet = [responseDict valueForKey:@"results"];
+
+        NSLog(@"%@", latestPlacesSet);
+        
+        [self placeMarkers];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -75,7 +79,49 @@
 }
 
 - (void) setRadius {
+    GMSVisibleRegion region = self.mapView.projection.visibleRegion;
     
+    CLLocation *farLeft = [[CLLocation alloc] initWithLatitude:region.farLeft.latitude longitude:region.farLeft.longitude];
+    CLLocation *farRight = [[CLLocation alloc] initWithLatitude:region.farRight.latitude longitude:region.farRight.longitude];
+    CLLocationDistance meters = [farLeft distanceFromLocation:farRight];
+    radius = [NSString stringWithFormat:@"%f",meters/2];
+}
+
+// MARKERS
+- (void) placeMarkers {
+    
+    for (int i=0; i<[latestPlacesSet count]; i++) {
+        NSDictionary *dict = latestPlacesSet[i];
+        [placesDict setObject:dict[@"name"] forKey:dict[@"place_id"]];
+        
+        CLLocationDegrees lat = [dict[@"geometry"][@"location"][@"lat"] doubleValue];
+        CLLocationDegrees lng = [dict[@"geometry"][@"location"][@"lng"] doubleValue];
+        CLLocationCoordinate2D position = CLLocationCoordinate2DMake(lat, lng);
+        GMSMarker *marker = [GMSMarker markerWithPosition:position];
+        marker.title = dict[@"name"];
+        
+        marker.icon = [GMSMarker markerImageWithColor:[UIColor colorWithRed:0.0 green:(172/255.0) blue:(237/255.0) alpha:1.0]];
+        marker.opacity = 1 - ((float)i/[latestPlacesSet count]);
+        
+        //setup label
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+        label.text = dict[@"types"][0];
+        label.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+        
+        //grab it
+        UIGraphicsBeginImageContextWithOptions(label.bounds.size, NO, [[UIScreen mainScreen] scale]);
+        [label.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage * icon = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        GMSMarker *labelMarker = [GMSMarker markerWithPosition:position];
+        labelMarker.icon = icon;
+        labelMarker.title = dict[@"name"];
+        [labelMarker setTappable:NO];
+        
+        marker.map = self.mapView;
+        labelMarker.map = self.mapView;
+    }
 }
 
 
@@ -92,20 +138,32 @@
 
 - (void)mapView:(GMSMapView *)mapView
 idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
-    //    id handler = ^(GMSReverseGeocodeResponse *response, NSError *error) {
-    //        if (error == nil) {
-    //            GMSReverseGeocodeResult *result = response.firstResult;
-    //            GMSMarker *marker = [GMSMarker markerWithPosition:cameraPosition.target];
-    //            marker.title = result.lines[0];
-    //            marker.snippet = result.lines[1];
-    //            marker.map = mapView;
-    //        }
-    //    };
-    //    [geocoder_ reverseGeocodeCoordinate:cameraPosition.target completionHandler:handler];
     self.center = [self.mapView.camera target];
     [self setRadius];
-    
+    [placesDict removeAllObjects];
+    [self sendPlacesGETRequest];
 }
+
+- (BOOL) mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
+    
+    
+    return true;
+}
+
+#pragma mark - Mantle
+
+- (NSArray *)deserializeAppInfosFromJSON:(NSArray *)appInfosJSON
+{
+    NSError *error;
+    NSArray *appInfos = [MTLJSONAdapter modelsOfClass:[Place class] fromJSONArray:appInfosJSON error:&error];
+    if (error) {
+        NSLog(@"Couldn't convert JSON to Tweet models: %@", error);
+        return nil;
+    }
+    
+    return appInfos;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
