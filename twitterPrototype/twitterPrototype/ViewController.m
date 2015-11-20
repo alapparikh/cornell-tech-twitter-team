@@ -40,9 +40,7 @@
     BOOL loadingData;
     BOOL noMoreData;
     int pace;
-    
-    // Decide whether to use gmsplacepicker or gmsmapview
-    bool placePicker;
+    BOOL isEmpty;
 }
 
 - (void)viewDidLoad {
@@ -51,9 +49,11 @@
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.0 green:(172/255.0) blue:(237/255.0) alpha:1.0];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
-    ServerIP = @"http://162.243.149.41:54321/";
+//    ServerIP = @"http://162.243.149.41:54321/";
+    ServerIP = @"http://0.0.0.0:54321/";
     loadingData = false;
     noMoreData = false;
+    isEmpty = true;
     pace = 20;
     AFmanager = [AFHTTPRequestOperationManager manager];
     // User location
@@ -66,44 +66,29 @@
     
     // Allocate array
     latestTweetSet = [[NSMutableArray alloc] init];
-    
     // Table View
     [self.tweetsTableView setDataSource:self];
     [self.tweetsTableView setDelegate:self];
-    
-    placePicker = true;
+    placeName = @"google";
+    //placeName = @"";
 }
 
-- (IBAction)onExploreButtonPressed:(id)sender {
-    
-    if (placePicker) {
-        NSLog(@"Launch Google Place Picker");
-        GMSCoordinateBounds *viewport = [[GMSCoordinateBounds alloc] initWithCoordinate:northEast
-                                                                             coordinate:southWest];
-        GMSPlacePickerConfig *config = [[GMSPlacePickerConfig alloc] initWithViewport:viewport];
-        _placePicker = [[GMSPlacePicker alloc] initWithConfig:config];
-
-        [_placePicker pickPlaceWithCallback:^(GMSPlace *place, NSError *error) {
-            if (error != nil) {
-                NSLog(@"Pick Place error %@", [error localizedDescription]);
-                return;
-            }
-            
-            if (place != nil) {
-                NSLog(@"Place name %@", place.name);
-                NSLog(@"Place address %@", place.formattedAddress);
-                NSLog(@"Place attributions %@", place.attributions.string);
-                placeName = [place.name stringByReplacingOccurrencesOfString:@" " withString:@""];
-                [self loadMoreData];
-            } else {
-                NSLog(@"No place selected");
-            }
-        }];
+- (void)viewWillAppear:(BOOL)animated {
+    if (isEmpty) {
+        [latestTweetSet removeAllObjects];
+        isEmpty = false;
     }
     else {
-        //[self sendPlacesGETRequest];
-        [self performSegueWithIdentifier:@"MapViewSegue" sender:self];
+        [self loadMoreData];
     }
+}
+/*
+- (void)viewWillDisappear:(BOOL)animated {
+    placeName = @"";
+}
+*/
+- (IBAction)onExploreButtonPressed:(id)sender {
+    [self performSegueWithIdentifier:@"MapViewSegue" sender:self];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -128,10 +113,6 @@
         northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001);
         southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001);
     }
-    
-//    [locationManager stopUpdatingLocation];
-//    NSLog(@"Stopped updating location");
-//    locationManager = nil;
 }
 
 - (NSArray *)deserializeAppInfosFromJSON:(NSArray *)appInfosJSON
@@ -144,6 +125,12 @@
     }
     
     return appInfos;
+}
+
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y + self.tweetsTableView.frame.size.height > scrollView.contentSize.height && !noMoreData) {
+        [self loadMoreData];
+    }
 }
 
 - (void) loadMoreData {
@@ -162,20 +149,35 @@
 
         NSDictionary *responseDict = responseObject;
         NSArray *responseArray = [responseDict valueForKey:@"tweets"];
-        latestTweetSet = [[self deserializeAppInfosFromJSON:responseArray] mutableCopy];
-        NSLog(@"tweetset: %@", latestTweetSet);
+        responseArray = [[self deserializeAppInfosFromJSON:responseArray] mutableCopy];
         
-        if ([latestTweetSet count] == 0) {
+        if ([responseArray count] == 0) {
             noMoreData = true;
-            [self.view makeToast:@"Sorry! No results found."];
+            if ([latestTweetSet count] == 0) {
+                [self.view makeToast:@"Sorry! No results found."];
+            }
         }
         else {
-            int lastItem = [latestTweetSet count];
-            int
+       /*     NSUInteger lastItemIndex = [latestTweetSet count];
+            NSUInteger newLastIndex = lastItemIndex + [responseArray count];
+            NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+            for (NSUInteger i = lastItemIndex; i < newLastIndex; i++) {
+                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+            }
+        */
+        //    [self.tweetsTableView beginUpdates];
+//            [latestTweetSet addObjectsFromArray:responseArray];
+            NSMutableArray *newArray = [NSMutableArray arrayWithArray:latestTweetSet];
+            [newArray addObjectsFromArray:responseArray];
+            latestTweetSet = newArray;
             [self.tweetsTableView reloadData];
+        //    [self.tweetsTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+        //    [self.tweetsTableView endUpdates];
+            loadingData = false;
         }
-
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        loadingData = false;
         NSLog(@"Error: %@", error);
     }];
 }
@@ -198,7 +200,6 @@
  DELEGATES
  */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     NSString *cellIdentifier = @"CellIdentifier";
     TweetViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -242,7 +243,6 @@
     NSData *data = [NSData dataWithContentsOfURL:url];
     //cell.profileImage.image = [[UIImageView alloc] initWithImage:[UIImage imageWithData:data]];
     cell.profileImage.image = [UIImage imageWithData:data];
-    NSLog(@"cellForRowAtIndexPath called");
     
     return cell;
 }
@@ -268,7 +268,6 @@
         self.tweetsTableView.hidden = false;
         self.emptyView.hidden = true;
     }
-    NSLog(@"latestTweetSet count: %lu", (unsigned long)[latestTweetSet count]);
     return [latestTweetSet count];
 }
 
