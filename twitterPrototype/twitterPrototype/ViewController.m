@@ -241,6 +241,8 @@
             NSLog(@"Error: %@", error);
             }];
      
+     //need a pop up a window to let user write the oauth_verifier, pass it as a parameters in access_token function
+     
      NSMutableString *access_token = [NSMutableString stringWithString:@"https://api.twitter.com/oauth/access_token"];
      [AFmanager POST:access_token
         parameters:@{ @"oauth_verifier": @""}
