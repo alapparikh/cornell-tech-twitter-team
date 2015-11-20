@@ -106,7 +106,7 @@
         //setup label
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
         label.text = dict[@"types"][0];
-        label.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+        //label.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
         
         //grab it
         UIGraphicsBeginImageContextWithOptions(label.bounds.size, NO, [[UIScreen mainScreen] scale]);
@@ -146,7 +146,14 @@ idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
 
 - (BOOL) mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
     
+    id<MapViewControllerDelegate> strongDelegate = self.delegate;
     
+    // Our delegate method is optional, so we should
+    // check that the delegate implements it
+    if ([strongDelegate respondsToSelector:@selector(MapViewController:didSelectPlaceName:)]) {
+        [strongDelegate MapViewController:self didSelectPlaceName:marker.title];
+    }
+    NSLog(@"didTapMarker called");
     return true;
 }
 
@@ -162,6 +169,14 @@ idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
     }
     
     return appInfos;
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        // Navigation button was pressed. Do some stuff
+        [self.navigationController popViewControllerAnimated:NO];
+    }
+    [super viewWillDisappear:animated];
 }
 
 

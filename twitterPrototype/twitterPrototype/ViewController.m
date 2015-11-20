@@ -50,8 +50,8 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
-//    ServerIP = @"http://162.243.149.41:54321/";
-    ServerIP = @"http://0.0.0.0:54321/";
+    ServerIP = @"http://162.243.149.41:54321/";
+//    ServerIP = @"http://0.0.0.0:54321/";
     loadingData = false;
     noMoreData = false;
     isEmpty = true;
@@ -89,6 +89,7 @@
 }
 */
 - (IBAction)onExploreButtonPressed:(id)sender {
+    
     [self performSegueWithIdentifier:@"MapViewSegue" sender:self];
 }
 
@@ -293,8 +294,21 @@
     else if ([[segue identifier] isEqualToString:@"MapViewSegue"]) {
         MapViewController *mapViewController = [segue destinationViewController];
         mapViewController.center = center;
+        mapViewController.delegate = self;
     }
 }
+
+// Implement the delegate methods for MapViewControllerDelegate
+- (void)MapViewController:(MapViewController *)viewController didSelectPlaceName:(NSString *)name {
+    NSLog(@"delegate method called");
+    // Set place name
+    name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
+    placeName = name;
+    NSLog(@"%@", placeName);
+    // ...then dismiss the child view controller
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 
 - (void)didReceiveMemoryWarning {
