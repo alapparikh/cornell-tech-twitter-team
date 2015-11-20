@@ -186,6 +186,74 @@
 
 -(void)myTapping1 :(id) sender
 {
+    /** failed authentication part, same for myTapping2
+     NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+     NSString *intervalString = [NSString stringWithFormat:@"%f", timeStamp];
+     NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
+     NSMutableString *nounce = [NSMutableString stringWithCapacity:20];
+     for (NSUInteger i = 0U; i < 20; i++) {
+     u_int32_t r = arc4random() % [alphabet length];
+     unichar c = [alphabet characterAtIndex:r];
+     [nounce appendFormat:@"%C", c];
+     }
+     
+     AFmanager.requestSerializer = [AFJSONRequestSerializer serializer];
+     [AFmanager.requestSerializer setValue:@"oob" forHTTPHeaderField:@"oauth_callback"];
+     [AFmanager.requestSerializer setValue:@"PeGra0CiDB7bpwnu8dlMWD6rm" forHTTPHeaderField:@"oauth_consumer_key"];
+     [AFmanager.requestSerializer setValue:@"HMAC-SHA1" forHTTPHeaderField:@"oauth_signature_method"];
+     [AFmanager.requestSerializer setValue:intervalString forHTTPHeaderField:@"oauth_timestamp"];
+     [AFmanager.requestSerializer setValue:nounce forHTTPHeaderField:@"oauth_nounce"];
+     [AFmanager.requestSerializer setValue:@"1.0" forHTTPHeaderField:@"oauth_version"];
+     
+     Authorization head should be
+     Authorization:
+     OAuth oauth_callback="http%3A%2F%2Flocalhost%2Fsign-in-with-twitter%2F",
+     oauth_consumer_key="cChZNFj6T5R0TigYB9yd1w",
+     oauth_nonce="ea9ec8429b68d6b77cd5600adbbb0456",
+     oauth_signature="F1Li3tvehgcraF8DMJ7OyxO4w9Y%3D", //don't know how to generate that
+     oauth_signature_method="HMAC-SHA1",
+     oauth_timestamp="1318467427",
+     oauth_version="1.0"
+     
+     NSMutableString *request_token = [NSMutableString stringWithString:@"https://api.twitter.com/oauth/request_token"];
+     NSMutableString *oauth_token = [NSMutableString stringWithString:@""];
+     [AFmanager POST:request_token
+        parameters:@{ @"x_auth_access_type": @"write"}
+            success:^(AFHTTPRequestOperation *operation, id responseObject){
+     
+                NSDictionary *responseDict = responseObject;
+                NSString *token = [responseDict valueForKey:@"oauth_token"];
+                [oauth_token appendString:token];
+                NSLog(@"%@", responseDict);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            }];
+     
+     NSMutableString *authenticate = [NSMutableString stringWithString:@"https://api.twitter.com/oauth/authenticate?oauth_token="];
+     [authenticate appendString:oauth_token];
+     [AFmanager GET:authenticate
+        parameters:nil
+            success:^(AFHTTPRequestOperation *operation, id responseObject){
+     
+                NSDictionary *responseDict = responseObject;
+                NSLog(@"%@", responseDict);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            }];
+     
+     NSMutableString *access_token = [NSMutableString stringWithString:@"https://api.twitter.com/oauth/access_token"];
+     [AFmanager POST:access_token
+        parameters:@{ @"oauth_verifier": @""}
+            success:^(AFHTTPRequestOperation *operation, id responseObject){
+     
+                NSDictionary *responseDict = responseObject;
+                NSLog(@"%@", responseDict);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            }];
+     
+     **/
+    
     UITapGestureRecognizer *gesture = (UITapGestureRecognizer *) sender;
     Tweet *tweet = latestTweetSet[gesture.view.tag];
     //NSString *tid = tweet.tweetId;
