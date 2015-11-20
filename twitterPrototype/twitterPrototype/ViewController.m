@@ -46,7 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.0 green:(172/255.0) blue:(237/255.0) alpha:1.0];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.0 green:(172/255.0) blue:(237/255.0) alpha:0.4];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
@@ -268,7 +268,7 @@
         self.tweetsTableView.hidden = true;
     } else {
         self.tweetsTableView.hidden = false;
-        self.emptyView.hidden = true;
+        //self.emptyView.hidden = true;
     }
     return [latestTweetSet count];
 }
@@ -300,11 +300,21 @@
 
 // Implement the delegate methods for MapViewControllerDelegate
 - (void)MapViewController:(MapViewController *)viewController didSelectPlaceName:(NSString *)name {
-    NSLog(@"delegate method called");
+    NSLog(@"placeName delegate method called");
     // Set place name
     name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
     placeName = name;
     NSLog(@"%@", placeName);
+    // ...then dismiss the child view controller
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)didPressBackButton:(MapViewController *)viewController {
+    NSLog(@"isEmpty delegate method called");
+    
+    // Set isEmpty
+    isEmpty = true;
+    
     // ...then dismiss the child view controller
     [self.navigationController popViewControllerAnimated:YES];
 }

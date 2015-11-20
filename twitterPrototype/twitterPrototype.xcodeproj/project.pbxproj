@@ -10,6 +10,8 @@
 		ADC7B2FC1F37ACE52E56FC5D /* Pods_twitterPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC590D47CC291EAD136C66D /* Pods_twitterPrototype.framework */; };
 		E6066B691BFA76CC0038BDD6 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6066B681BFA76CC0038BDD6 /* MapViewController.m */; };
 		E60B4D101BFEB70600504754 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B4D0F1BFEB70600504754 /* Place.m */; };
+		E60B4D131BFF73BB00504754 /* tweet_street_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E60B4D121BFF73BB00504754 /* tweet_street_background.jpg */; };
+		E60B4D151BFF762D00504754 /* mykonos_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E60B4D141BFF762D00504754 /* mykonos_background.jpg */; };
 		E62AC1241BD9FA2200ADA2CE /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1231BD9FA2200ADA2CE /* Tweet.m */; };
 		E62AC1271BDA01EE00ADA2CE /* TweetUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1261BDA01EE00ADA2CE /* TweetUser.m */; };
 		E62AC12A1BDA020000ADA2CE /* TweetPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1291BDA020000ADA2CE /* TweetPlace.m */; };
@@ -55,6 +57,8 @@
 		E6066B681BFA76CC0038BDD6 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E60B4D0E1BFEB70600504754 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		E60B4D0F1BFEB70600504754 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		E60B4D121BFF73BB00504754 /* tweet_street_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tweet_street_background.jpg; sourceTree = "<group>"; };
+		E60B4D141BFF762D00504754 /* mykonos_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mykonos_background.jpg; sourceTree = "<group>"; };
 		E62AC1221BD9FA2200ADA2CE /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
 		E62AC1231BD9FA2200ADA2CE /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
 		E62AC1251BDA01EE00ADA2CE /* TweetUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetUser.h; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 		E6E12BE91BD80E00007278DA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E60B4D141BFF762D00504754 /* mykonos_background.jpg */,
+				E60B4D121BFF73BB00504754 /* tweet_street_background.jpg */,
 				E65F443A1BD997CE00357101 /* elenis.png */,
 				E65F443B1BD997CE00357101 /* jonhartig.png */,
 				E65F44341BD9953900357101 /* default-user-icon-profile.png */,
@@ -347,7 +353,9 @@
 			files = (
 				E65F443C1BD997CE00357101 /* elenis.png in Resources */,
 				E65F44321BD990AE00357101 /* favorite_icon.png in Resources */,
+				E60B4D131BFF73BB00504754 /* tweet_street_background.jpg in Resources */,
 				E6E12BF91BD80E00007278DA /* LaunchScreen.storyboard in Resources */,
+				E60B4D151BFF762D00504754 /* mykonos_background.jpg in Resources */,
 				E65F44331BD990AE00357101 /* retweet_icon.png in Resources */,
 				E6E12BF61BD80E00007278DA /* Assets.xcassets in Resources */,
 				E6E12BF41BD80E00007278DA /* Main.storyboard in Resources */,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i1c-6x-b7L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i1c-6x-b7L">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -368,27 +368,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbM-z2-2F0" userLabel="Empty View">
-                                <rect key="frame" x="0.0" y="64" width="600" height="488"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover what's happening around you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQc-UD-JIj">
-                                        <rect key="frame" x="16" y="234" width="568" height="22"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mykonos_background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Io7-fm-BY5">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <color key="textColor" red="0.0" green="0.67450980390000004" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover Tweets about the places around you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCA-t5-Z4j">
+                                        <rect key="frame" x="8" y="367" width="584" height="26.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="FQc-UD-JIj" secondAttribute="trailing" constant="16" id="76G-UU-G0H"/>
-                                    <constraint firstItem="FQc-UD-JIj" firstAttribute="leading" secondItem="YbM-z2-2F0" secondAttribute="leading" constant="16" id="FcV-zl-AOt"/>
-                                    <constraint firstItem="FQc-UD-JIj" firstAttribute="centerY" secondItem="YbM-z2-2F0" secondAttribute="centerY" id="Rgg-NH-4gh"/>
-                                    <constraint firstItem="FQc-UD-JIj" firstAttribute="centerX" secondItem="YbM-z2-2F0" secondAttribute="centerX" id="kkQ-HX-3LB"/>
+                                    <constraint firstItem="Io7-fm-BY5" firstAttribute="top" secondItem="YbM-z2-2F0" secondAttribute="top" id="4n1-PI-vbT"/>
+                                    <constraint firstAttribute="trailing" secondItem="Io7-fm-BY5" secondAttribute="trailing" id="5Ia-Xb-FFT"/>
+                                    <constraint firstAttribute="bottom" secondItem="Io7-fm-BY5" secondAttribute="bottom" id="H9K-Wq-KQP"/>
+                                    <constraint firstItem="vCA-t5-Z4j" firstAttribute="leading" secondItem="YbM-z2-2F0" secondAttribute="leading" constant="8" id="JRR-EL-vDC"/>
+                                    <constraint firstItem="Io7-fm-BY5" firstAttribute="leading" secondItem="YbM-z2-2F0" secondAttribute="leading" id="QZ6-yT-Mln"/>
+                                    <constraint firstItem="vCA-t5-Z4j" firstAttribute="centerY" secondItem="YbM-z2-2F0" secondAttribute="centerY" constant="80" id="V3k-Vf-RP3"/>
+                                    <constraint firstItem="vCA-t5-Z4j" firstAttribute="centerX" secondItem="YbM-z2-2F0" secondAttribute="centerX" id="VXX-Em-cYF"/>
+                                    <constraint firstAttribute="trailing" secondItem="vCA-t5-Z4j" secondAttribute="trailing" constant="8" id="dIT-bX-7eJ"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="VXX-Em-cYF"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="136" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Au1-No-XzZ" userLabel="Tweets Table View">
-                                <rect key="frame" x="0.0" y="64" width="600" height="488"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="472"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -418,7 +431,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R1z-sJ-Xin">
-                                                            <rect key="frame" x="564" y="10" width="28" height="15"/>
+                                                            <rect key="frame" x="564" y="10" width="28" height="14.5"/>
                                                             <animations/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -537,51 +550,49 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0r5-Ji-6iT">
-                                <rect key="frame" x="0.0" y="552" width="600" height="48"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcZ-Fr-evN">
-                                        <rect key="frame" x="200" y="9" width="200" height="30"/>
-                                        <animations/>
-                                        <color key="backgroundColor" red="0.0" green="0.67450980390000004" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="KiY-xh-eXu"/>
-                                        </constraints>
-                                        <state key="normal" title="Explore">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="onExploreButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pc5-yr-HGj"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcZ-Fr-evN">
+                                <rect key="frame" x="16" y="544" width="568" height="48"/>
                                 <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.68293833892617239" blue="0.92976614932885904" alpha="0.40404094827586207" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="dXm-4U-L45"/>
-                                    <constraint firstItem="fcZ-Fr-evN" firstAttribute="centerX" secondItem="0r5-Ji-6iT" secondAttribute="centerX" id="lwN-7I-pU7"/>
-                                    <constraint firstItem="fcZ-Fr-evN" firstAttribute="centerY" secondItem="0r5-Ji-6iT" secondAttribute="centerY" id="mS1-ik-t1l"/>
+                                    <constraint firstAttribute="height" constant="48" id="6vQ-Y1-4Xg"/>
+                                    <constraint firstAttribute="width" constant="200" id="KiY-xh-eXu"/>
                                 </constraints>
-                            </view>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Explore">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="KiY-xh-eXu"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="onExploreButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pc5-yr-HGj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="YbM-z2-2F0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="9Pg-g5-HvW"/>
-                            <constraint firstItem="0r5-Ji-6iT" firstAttribute="top" secondItem="YbM-z2-2F0" secondAttribute="bottom" id="BaC-7h-lnW"/>
-                            <constraint firstItem="0r5-Ji-6iT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Gsq-Wd-RQE"/>
+                            <constraint firstAttribute="trailing" secondItem="fcZ-Fr-evN" secondAttribute="trailing" constant="16" id="1H3-1R-pwX"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="YbM-z2-2F0" secondAttribute="bottom" id="4dp-d8-HzV"/>
+                            <constraint firstItem="fcZ-Fr-evN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="8jD-fj-RhC"/>
+                            <constraint firstItem="YbM-z2-2F0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-64" id="9Pg-g5-HvW"/>
+                            <constraint firstItem="fcZ-Fr-evN" firstAttribute="top" secondItem="Au1-No-XzZ" secondAttribute="bottom" constant="8" id="FRd-Qc-cfB"/>
                             <constraint firstItem="Au1-No-XzZ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Mre-Dv-ttf"/>
                             <constraint firstItem="YbM-z2-2F0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="XAa-wL-xHf"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Au1-No-XzZ" secondAttribute="bottom" id="aEc-k7-wIO"/>
-                            <constraint firstAttribute="bottom" secondItem="0r5-Ji-6iT" secondAttribute="bottom" id="cML-uL-LAb"/>
-                            <constraint firstItem="0r5-Ji-6iT" firstAttribute="top" secondItem="Au1-No-XzZ" secondAttribute="bottom" id="edb-Zz-6jl"/>
+                            <constraint firstItem="Au1-No-XzZ" firstAttribute="top" secondItem="fcZ-Fr-evN" secondAttribute="bottom" constant="-260" id="baG-q9-KoK"/>
                             <constraint firstItem="Au1-No-XzZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="qZt-oJ-Bkc"/>
                             <constraint firstAttribute="trailing" secondItem="YbM-z2-2F0" secondAttribute="trailing" id="vxb-yf-5hK"/>
                             <constraint firstAttribute="trailing" secondItem="Au1-No-XzZ" secondAttribute="trailing" id="waR-dk-TUt"/>
-                            <constraint firstAttribute="trailing" secondItem="0r5-Ji-6iT" secondAttribute="trailing" id="zJ9-vP-1kf"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fcZ-Fr-evN" secondAttribute="bottom" constant="8" id="wsm-fa-X2U"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="baG-q9-KoK"/>
                                 <exclude reference="aEc-k7-wIO"/>
                             </mask>
                         </variation>
@@ -714,6 +725,7 @@
         <image name="elenis.png" width="1202" height="768"/>
         <image name="favorite_icon.png" width="512" height="512"/>
         <image name="jonhartig.png" width="1010" height="618"/>
+        <image name="mykonos_background.jpg" width="299" height="450"/>
         <image name="retweet_icon.png" width="180" height="114"/>
     </resources>
 </document>

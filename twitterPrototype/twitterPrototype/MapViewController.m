@@ -29,6 +29,7 @@
     [super viewDidLoad];
     latestPlacesSet = [[NSMutableArray alloc] init];
     placesDict = [[NSMutableDictionary alloc] initWithCapacity:20];
+    [self.navigationItem.backBarButtonItem setAction:@selector(backButtonAction:)];
     
     // Create a GMSCameraPosition that tells the map to display the
     // coordinate -33.86,151.20 at zoom level 6.
@@ -102,11 +103,15 @@
         
         marker.icon = [GMSMarker markerImageWithColor:[UIColor colorWithRed:0.0 green:(172/255.0) blue:(237/255.0) alpha:1.0]];
         marker.opacity = 1 - ((float)i/[latestPlacesSet count]);
+        [marker setZIndex:0];
         
         //setup label
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+        UILabel *label = [[UILabel alloc] init];
         label.text = dict[@"types"][0];
-        //label.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
+        [label setFont:[UIFont systemFontOfSize:12]];
+        [label setTextColor:[UIColor whiteColor]];
+        [label setBackgroundColor:[UIColor colorWithRed:0.0 green:(172.0/255) blue:(237.0/255) alpha:0.4]];
+        [label sizeToFit];
         
         //grab it
         UIGraphicsBeginImageContextWithOptions(label.bounds.size, NO, [[UIScreen mainScreen] scale]);
@@ -118,6 +123,7 @@
         labelMarker.icon = icon;
         labelMarker.title = dict[@"name"];
         [labelMarker setTappable:NO];
+        [labelMarker setZIndex:1];
         
         marker.map = self.mapView;
         labelMarker.map = self.mapView;
@@ -171,14 +177,20 @@ idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
     return appInfos;
 }
 
--(void) viewWillDisappear:(BOOL)animated {
-    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
-        // Navigation button was pressed. Do some stuff
-        [self.navigationController popViewControllerAnimated:NO];
+-(void) backButtonAction:(id)sender {
+    
+    //do something here
+    id<MapViewControllerDelegate> strongDelegate = self.delegate;
+    
+    // Our delegate method is optional, so we should
+    // check that the delegate implements it
+    if ([strongDelegate respondsToSelector:@selector(MapViewController:didSelectPlaceName:)]) {
+        [strongDelegate didPressBackButton:self];
     }
-    [super viewWillDisappear:animated];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -25,5 +25,6 @@
 
 - (void)MapViewController:(MapViewController*)viewController
              didSelectPlaceName:(NSString *)name;
+- (void)didPressBackButton:(MapViewController*)viewController;
 
 @end
