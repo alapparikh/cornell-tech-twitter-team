@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ADC7B2FC1F37ACE52E56FC5D /* Pods_twitterPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC590D47CC291EAD136C66D /* Pods_twitterPrototype.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E6066B691BFA76CC0038BDD6 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6066B681BFA76CC0038BDD6 /* MapViewController.m */; };
 		E62AC1241BD9FA2200ADA2CE /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1231BD9FA2200ADA2CE /* Tweet.m */; };
 		E62AC1271BDA01EE00ADA2CE /* TweetUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1261BDA01EE00ADA2CE /* TweetUser.m */; };
 		E62AC12A1BDA020000ADA2CE /* TweetPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1291BDA020000ADA2CE /* TweetPlace.m */; };
@@ -49,6 +50,8 @@
 		9DC590D47CC291EAD136C66D /* Pods_twitterPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_twitterPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC145CE47EA4D606F2F5E43A /* Pods-twitterPrototype.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitterPrototype.release.xcconfig"; path = "Pods/Target Support Files/Pods-twitterPrototype/Pods-twitterPrototype.release.xcconfig"; sourceTree = "<group>"; };
 		D2F4624BC2D2783BB06C7AA2 /* Pods-twitterPrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitterPrototype.debug.xcconfig"; path = "Pods/Target Support Files/Pods-twitterPrototype/Pods-twitterPrototype.debug.xcconfig"; sourceTree = "<group>"; };
+		E6066B671BFA76CC0038BDD6 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		E6066B681BFA76CC0038BDD6 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E62AC1221BD9FA2200ADA2CE /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
 		E62AC1231BD9FA2200ADA2CE /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
 		E62AC1251BDA01EE00ADA2CE /* TweetUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetUser.h; sourceTree = "<group>"; };
@@ -185,6 +188,8 @@
 				E6E12BE91BD80E00007278DA /* Supporting Files */,
 				E694523E1BEB0BE2003CB664 /* WebViewController.h */,
 				E694523F1BEB0BE2003CB664 /* WebViewController.m */,
+				E6066B671BFA76CC0038BDD6 /* MapViewController.h */,
+				E6066B681BFA76CC0038BDD6 /* MapViewController.m */,
 			);
 			path = twitterPrototype;
 			sourceTree = "<group>";
@@ -409,6 +414,7 @@
 				E62AC1271BDA01EE00ADA2CE /* TweetUser.m in Sources */,
 				E6E12BF11BD80E00007278DA /* ViewController.m in Sources */,
 				E6E12BEE1BD80E00007278DA /* AppDelegate.m in Sources */,
+				E6066B691BFA76CC0038BDD6 /* MapViewController.m in Sources */,
 				E69452401BEB0BE2003CB664 /* WebViewController.m in Sources */,
 				E62AC1241BD9FA2200ADA2CE /* Tweet.m in Sources */,
 				E6E12BEB1BD80E00007278DA /* main.m in Sources */,

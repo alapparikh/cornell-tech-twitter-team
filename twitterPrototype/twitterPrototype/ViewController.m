@@ -16,6 +16,7 @@
 #import "TweetViewCell.h"
 #import <Toast/UIView+Toast.h>
 #import "WebViewController.h"
+#import "MapViewController.h"
 @import GoogleMaps;
 
 @interface ViewController () <CLLocationManagerDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -26,6 +27,8 @@
 
 @implementation ViewController {
     GMSPlacePicker *_placePicker;
+    GMSMapView *mapView_;
+
     CLLocationManager *locationManager;
     CLLocationCoordinate2D center;
     CLLocationCoordinate2D northEast;
@@ -33,8 +36,10 @@
     
     NSString *placeName;
     NSMutableArray *latestTweetSet;
-    
     NSURL *tweetURL;
+    
+    // Decide whether to use gmsplacepicker or gmsmapview
+    bool placePicker;
 }
 
 - (void)viewDidLoad {
@@ -57,33 +62,40 @@
     // Table View
     [self.tweetsTableView setDataSource:self];
     [self.tweetsTableView setDelegate:self];
+    
+    placePicker = false;
 }
 
 - (IBAction)onExploreButtonPressed:(id)sender {
     
-    NSLog(@"Launch Google Place Picker");
-    GMSCoordinateBounds *viewport = [[GMSCoordinateBounds alloc] initWithCoordinate:northEast
-                                                                         coordinate:southWest];
-    GMSPlacePickerConfig *config = [[GMSPlacePickerConfig alloc] initWithViewport:viewport];
-    _placePicker = [[GMSPlacePicker alloc] initWithConfig:config];
-    
-    [_placePicker pickPlaceWithCallback:^(GMSPlace *place, NSError *error) {
-        if (error != nil) {
-            NSLog(@"Pick Place error %@", [error localizedDescription]);
-            return;
-        }
+    if (placePicker) {
+        NSLog(@"Launch Google Place Picker");
+        GMSCoordinateBounds *viewport = [[GMSCoordinateBounds alloc] initWithCoordinate:northEast
+                                                                             coordinate:southWest];
+        GMSPlacePickerConfig *config = [[GMSPlacePickerConfig alloc] initWithViewport:viewport];
+        _placePicker = [[GMSPlacePicker alloc] initWithConfig:config];
         
-        if (place != nil) {
-            NSLog(@"Place name %@", place.name);
-            NSLog(@"Place address %@", place.formattedAddress);
-            NSLog(@"Place attributions %@", place.attributions.string);
-            placeName = [place.name stringByReplacingOccurrencesOfString:@" " withString:@""];
-            [self sendGETRequest];
-        } else {
-            NSLog(@"No place selected");
-        }
-    }];
-
+        [_placePicker pickPlaceWithCallback:^(GMSPlace *place, NSError *error) {
+            if (error != nil) {
+                NSLog(@"Pick Place error %@", [error localizedDescription]);
+                return;
+            }
+            
+            if (place != nil) {
+                NSLog(@"Place name %@", place.name);
+                NSLog(@"Place address %@", place.formattedAddress);
+                NSLog(@"Place attributions %@", place.attributions.string);
+                placeName = [place.name stringByReplacingOccurrencesOfString:@" " withString:@""];
+                [self sendGETRequest];
+            } else {
+                NSLog(@"No place selected");
+            }
+        }];
+    }
+    else {
+        //[self sendPlacesGETRequest];
+        [self performSegueWithIdentifier:@"MapViewSegue" sender:self];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -125,6 +137,11 @@
     
     return appInfos;
 }
+
+#pragma GET Requests
+/*
+ * GET Requests
+*/
 
 - (void) sendGETRequest {
     NSMutableString *GETAddress = [NSMutableString string];
@@ -233,12 +250,20 @@
         
         // Pass any objects to the view controller here, like...
         [webViewController setURL:tweetURL];
+        
+    }
+    else if ([[segue identifier] isEqualToString:@"MapViewSegue"]) {
+        MapViewController *mapViewController = [segue destinationViewController];
+        mapViewController.center = center;
     }
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 @end
