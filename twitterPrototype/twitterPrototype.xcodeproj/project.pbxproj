@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ADC7B2FC1F37ACE52E56FC5D /* Pods_twitterPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC590D47CC291EAD136C66D /* Pods_twitterPrototype.framework */; };
+		C9E929BE1BFF750500B26BA3 /* favorited_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9E929BD1BFF750500B26BA3 /* favorited_icon.png */; };
 		E6066B691BFA76CC0038BDD6 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6066B681BFA76CC0038BDD6 /* MapViewController.m */; };
 		E60B4D101BFEB70600504754 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B4D0F1BFEB70600504754 /* Place.m */; };
 		E62AC1241BD9FA2200ADA2CE /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1231BD9FA2200ADA2CE /* Tweet.m */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		9DC590D47CC291EAD136C66D /* Pods_twitterPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_twitterPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC145CE47EA4D606F2F5E43A /* Pods-twitterPrototype.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitterPrototype.release.xcconfig"; path = "Pods/Target Support Files/Pods-twitterPrototype/Pods-twitterPrototype.release.xcconfig"; sourceTree = "<group>"; };
+		C9E929BD1BFF750500B26BA3 /* favorited_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorited_icon.png; sourceTree = "<group>"; };
 		D2F4624BC2D2783BB06C7AA2 /* Pods-twitterPrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitterPrototype.debug.xcconfig"; path = "Pods/Target Support Files/Pods-twitterPrototype/Pods-twitterPrototype.debug.xcconfig"; sourceTree = "<group>"; };
 		E6066B671BFA76CC0038BDD6 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		E6066B681BFA76CC0038BDD6 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 		E6E12BE91BD80E00007278DA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C9E929BD1BFF750500B26BA3 /* favorited_icon.png */,
 				E65F443A1BD997CE00357101 /* elenis.png */,
 				E65F443B1BD997CE00357101 /* jonhartig.png */,
 				E65F44341BD9953900357101 /* default-user-icon-profile.png */,
@@ -346,6 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E65F443C1BD997CE00357101 /* elenis.png in Resources */,
+				C9E929BE1BFF750500B26BA3 /* favorited_icon.png in Resources */,
 				E65F44321BD990AE00357101 /* favorite_icon.png in Resources */,
 				E6E12BF91BD80E00007278DA /* LaunchScreen.storyboard in Resources */,
 				E65F44331BD990AE00357101 /* retweet_icon.png in Resources */,

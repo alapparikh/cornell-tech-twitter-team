@@ -54,7 +54,7 @@
 //    ServerIP = @"http://0.0.0.0:54321/";
     loadingData = false;
     noMoreData = false;
-    isEmpty = true;
+    isEmpty = false;
     pace = 20;
     AFmanager = [AFHTTPRequestOperationManager manager];
     // User location
@@ -186,6 +186,7 @@
 
 -(void)myTapping1 :(id) sender
 {
+    [self.tweetsTableView makeToast:@"Retweeted"];
     /** failed authentication part, same for myTapping2
      NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
      NSString *intervalString = [NSString stringWithFormat:@"%f", timeStamp];
@@ -255,7 +256,7 @@
             }];
      
      **/
-    
+    /*
     UITapGestureRecognizer *gesture = (UITapGestureRecognizer *) sender;
     Tweet *tweet = latestTweetSet[gesture.view.tag];
     //NSString *tid = tweet.tweetId;
@@ -272,10 +273,26 @@
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
             }];
+     */
 }
 
 -(void)myTapping2 :(id) sender
 {
+    UIImageView *favorite = (UIImageView*)((UITapGestureRecognizer*)sender).view;
+    NSString* imageName1 = [[NSBundle mainBundle] pathForResource:@"favorited_icon" ofType:@"png"];
+
+    NSString* imageName2 = [[NSBundle mainBundle] pathForResource:@"favorite_icon" ofType:@"png"];
+    UIImage* image1 = [[UIImage alloc] initWithContentsOfFile:imageName1];
+    UIImage* image2 = [[UIImage alloc] initWithContentsOfFile:imageName2];
+    if ([UIImagePNGRepresentation(image1) isEqualToData:
+            UIImagePNGRepresentation(favorite.image)]) {
+        [favorite setImage:image2];
+    }
+    else {
+        [favorite setImage:image1];
+    }
+    
+    /*
     UITapGestureRecognizer *gesture = (UITapGestureRecognizer *) sender;
     Tweet *tweet = latestTweetSet[gesture.view.tag];
     //NSString *tid = tweet.tweetId;
@@ -291,7 +308,7 @@
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
             }];
-    
+    */
 }
 
 
@@ -301,14 +318,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *cellIdentifier = @"CellIdentifier";
     TweetViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-//    if (cell == nil) {
-//        cell = [[TweetViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-//    }
-    
-    /*
-     *Configure Cell
-     */
     Tweet *tweet = latestTweetSet[indexPath.row];
     cell.name.text = tweet.name;
     cell.time.text = [tweet.createdAt substringWithRange:NSMakeRange(4, 6)];

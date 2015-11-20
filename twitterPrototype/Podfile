@@ -5,9 +5,9 @@ use_frameworks!
 target 'twitterPrototype' do
 
 pod 'GoogleMaps'
-pod 'AFNetworking', '~> 2.5'
+pod 'AFNetworking', '~>2.5'
 pod 'Mantle', '~> 2.0'
 pod 'Toast', '~> 2.4'
-pod ‘AFOAuth2Manager’, '~> 2.2.0’
+#pod 'AFOAuth2Manager','~> 2.2.0'
 
 end
