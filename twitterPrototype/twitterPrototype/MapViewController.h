@@ -18,6 +18,7 @@
 @property (nonatomic, weak) id<MapViewControllerDelegate> delegate;
 
 - (BOOL) mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker;
+- (void) backButtonAction:(id)sender;
 
 @end
 

@@ -54,7 +54,7 @@
 //    ServerIP = @"http://0.0.0.0:54321/";
     loadingData = false;
     noMoreData = false;
-    isEmpty = false;
+    isEmpty = true;
     pace = 20;
     AFmanager = [AFHTTPRequestOperationManager manager];
     // User location
@@ -70,8 +70,8 @@
     // Table View
     [self.tweetsTableView setDataSource:self];
     [self.tweetsTableView setDelegate:self];
-    placeName = @"google";
-    //placeName = @"";
+    //placeName = @"google";
+    placeName = @"";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -152,7 +152,7 @@
         NSDictionary *responseDict = responseObject;
         NSArray *responseArray = [responseDict valueForKey:@"tweets"];
         responseArray = [[self deserializeAppInfosFromJSON:responseArray] mutableCopy];
-        
+        NSLog (@"%@", responseArray);
         if ([responseArray count] == 0) {
             noMoreData = true;
             if ([latestTweetSet count] == 0) {
@@ -374,7 +374,7 @@
         self.tweetsTableView.hidden = true;
     } else {
         self.tweetsTableView.hidden = false;
-        //self.emptyView.hidden = true;
+        self.emptyView.hidden = true;
     }
     return [latestTweetSet count];
 }
@@ -410,6 +410,7 @@
     // Set place name
     name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
     placeName = name;
+    isEmpty = false;
     NSLog(@"%@", placeName);
     // ...then dismiss the child view controller
     [self.navigationController popViewControllerAnimated:YES];
