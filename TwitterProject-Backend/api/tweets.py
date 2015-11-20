@@ -12,7 +12,7 @@ from common import *
 app = get_app()
 
 @app.route('/search/<kw>')
-def hsd(kw):
+def search(kw):
     begin = int(request.args['begin'])
     end = int(request.args['end'])
     if begin == 0:
@@ -32,9 +32,13 @@ def hsd(kw):
 
              # this is where the fun actually starts :)
             ts.search_tweets(tso)
-            tweets = Tweets(keyword=kw, tw=ts.get_tweets()['statuses'])
-            print tweets.tw[0:1]
-            tweets.save()
+            oldTweets = Tweets.get_one(keyword=kw)
+            if oldTweets is None:
+                tweets = Tweets(keyword=kw, tw=ts.get_tweets()['statuses'])
+                tweets.save()
+            else:
+                oldTweets.tw = ts.get_tweets()['statuses']
+                oldTweets.save()
         except TwitterSearchException as e: # take care of all those ugly errors if there are some
             print(e)
             return jsonify(error=1)

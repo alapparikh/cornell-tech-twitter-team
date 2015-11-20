@@ -17,5 +17,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *content;
 @property (nonatomic, weak) IBOutlet UILabel *favoriteCount;
 @property (nonatomic, weak) IBOutlet UILabel *retweetCount;
+@property (weak, nonatomic) IBOutlet UIImageView *favorite;
+@property (weak, nonatomic) IBOutlet UIImageView *retweet;
 
 @end
