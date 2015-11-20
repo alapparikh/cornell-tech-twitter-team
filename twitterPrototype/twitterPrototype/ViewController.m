@@ -63,7 +63,7 @@
     [self.tweetsTableView setDataSource:self];
     [self.tweetsTableView setDelegate:self];
     
-    placePicker = false;
+    placePicker = true;
 }
 
 - (IBAction)onExploreButtonPressed:(id)sender {
@@ -168,6 +168,20 @@
     }];
 }
 
+-(void)myTapping1 :(id) sender
+{
+    UITapGestureRecognizer *gesture = (UITapGestureRecognizer *) sender;
+    NSLog(@"Tag = %d", gesture.view.tag);
+    NSLog(@"retweet");
+}
+
+-(void)myTapping2 :(id) sender
+{
+    UITapGestureRecognizer *gesture = (UITapGestureRecognizer *) sender;
+    NSLog(@"Tag = %d", gesture.view.tag);
+    NSLog(@"favorite");
+}
+
 /*
  DELEGATES
  */
@@ -198,6 +212,18 @@
     cell.content.text = tweet.content;
     cell.retweetCount.text = [tweet.retweetCount stringValue];
     cell.favoriteCount.text = [tweet.favoriteCount stringValue];
+    
+    cell.retweet.userInteractionEnabled = YES;
+    cell.retweet.tag = indexPath.row;
+    UITapGestureRecognizer *tapped1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(myTapping1:)];
+    tapped1.numberOfTapsRequired = 1;
+    [cell.retweet addGestureRecognizer:tapped1];
+    
+    cell.favorite.userInteractionEnabled = YES;
+    cell.favorite.tag = indexPath.row;
+    UITapGestureRecognizer *tapped2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(myTapping2:)];
+    tapped2.numberOfTapsRequired = 1;
+    [cell.favorite addGestureRecognizer:tapped2];
     
     // Load profile image
     NSURL *url = [NSURL URLWithString:tweet.profileImage];

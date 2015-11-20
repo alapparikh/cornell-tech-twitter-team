@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ADC7B2FC1F37ACE52E56FC5D /* Pods_twitterPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC590D47CC291EAD136C66D /* Pods_twitterPrototype.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		ADC7B2FC1F37ACE52E56FC5D /* Pods_twitterPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC590D47CC291EAD136C66D /* Pods_twitterPrototype.framework */; };
 		E6066B691BFA76CC0038BDD6 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6066B681BFA76CC0038BDD6 /* MapViewController.m */; };
 		E62AC1241BD9FA2200ADA2CE /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1231BD9FA2200ADA2CE /* Tweet.m */; };
 		E62AC1271BDA01EE00ADA2CE /* TweetUser.m in Sources */ = {isa = PBXBuildFile; fileRef = E62AC1261BDA01EE00ADA2CE /* TweetUser.m */; };
