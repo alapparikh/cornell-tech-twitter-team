@@ -24,6 +24,10 @@
                };
 }
 
+/****
+ *TODO: Get MTLJSONAdapter to work using TweetUser and TweetPlace models
+*****/
+
 + (NSValueTransformer *)userDictJSONTransformer
 {
     // tell Mantle to populate userDict property with an array of TweetUser objects

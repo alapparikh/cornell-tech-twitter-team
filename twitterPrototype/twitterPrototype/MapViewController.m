@@ -51,6 +51,7 @@
     self.mapView.delegate = self;
 }
 
+// GET request to Google API requesting places around current location
 - (void) sendPlacesGETRequest {
     NSMutableString *GETAddress = [NSMutableString string];
     [GETAddress appendString:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?"];
@@ -79,16 +80,7 @@
     
 }
 
-- (void) setRadius {
-    GMSVisibleRegion region = self.mapView.projection.visibleRegion;
-    
-    CLLocation *farLeft = [[CLLocation alloc] initWithLatitude:region.farLeft.latitude longitude:region.farLeft.longitude];
-    CLLocation *farRight = [[CLLocation alloc] initWithLatitude:region.farRight.latitude longitude:region.farRight.longitude];
-    CLLocationDistance meters = [farLeft distanceFromLocation:farRight];
-    radius = [NSString stringWithFormat:@"%f",meters/2];
-}
-
-// MARKERS
+#pragma mark - Markers
 - (void) placeMarkers {
     
     for (int i=0; i<[latestPlacesSet count]; i++) {
@@ -154,13 +146,26 @@ idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
     
     id<MapViewControllerDelegate> strongDelegate = self.delegate;
     
-    // Our delegate method is optional, so we should
-    // check that the delegate implements it
+    // Check that delegate implements method
     if ([strongDelegate respondsToSelector:@selector(MapViewController:didSelectPlaceName::)]) {
         [strongDelegate MapViewController:self didSelectPlaceName:marker.title :marker.position];
     }
     NSLog(@"didTapMarker called");
     return true;
+}
+
+-(void) backButtonAction:(id)sender {
+    
+    //do something here
+    id<MapViewControllerDelegate> strongDelegate = self.delegate;
+    
+    // Check that delegate implements method
+    if ([strongDelegate respondsToSelector:@selector(didPressBackButton:)]) {
+        [strongDelegate didPressBackButton:self];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 #pragma mark - Mantle
@@ -177,20 +182,19 @@ idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
     return appInfos;
 }
 
--(void) backButtonAction:(id)sender {
+#pragma mark - Helper
+
+// Helper method to decide size of map
+- (void) setRadius {
+    GMSVisibleRegion region = self.mapView.projection.visibleRegion;
     
-    //do something here
-    id<MapViewControllerDelegate> strongDelegate = self.delegate;
-    
-    // Our delegate method is optional, so we should
-    // check that the delegate implements it
-    if ([strongDelegate respondsToSelector:@selector(didPressBackButton:)]) {
-        [strongDelegate didPressBackButton:self];
-    }
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    
+    CLLocation *farLeft = [[CLLocation alloc] initWithLatitude:region.farLeft.latitude longitude:region.farLeft.longitude];
+    CLLocation *farRight = [[CLLocation alloc] initWithLatitude:region.farRight.latitude longitude:region.farRight.longitude];
+    CLLocationDistance meters = [farLeft distanceFromLocation:farRight];
+    radius = [NSString stringWithFormat:@"%f",meters/2];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
