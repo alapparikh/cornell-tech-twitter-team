@@ -156,8 +156,8 @@ idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
     
     // Our delegate method is optional, so we should
     // check that the delegate implements it
-    if ([strongDelegate respondsToSelector:@selector(MapViewController:didSelectPlaceName:)]) {
-        [strongDelegate MapViewController:self didSelectPlaceName:marker.title];
+    if ([strongDelegate respondsToSelector:@selector(MapViewController:didSelectPlaceName::)]) {
+        [strongDelegate MapViewController:self didSelectPlaceName:marker.title :marker.position];
     }
     NSLog(@"didTapMarker called");
     return true;
@@ -184,7 +184,7 @@ idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
     
     // Our delegate method is optional, so we should
     // check that the delegate implements it
-    if ([strongDelegate respondsToSelector:@selector(MapViewController:didSelectPlaceName:)]) {
+    if ([strongDelegate respondsToSelector:@selector(didPressBackButton:)]) {
         [strongDelegate didPressBackButton:self];
     }
     

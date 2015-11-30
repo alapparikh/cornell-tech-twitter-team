@@ -18,13 +18,17 @@
 #import "WebViewController.h"
 #import "MapViewController.h"
 @import GoogleMaps;
+
 @interface ViewController () <CLLocationManagerDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tweetsTableView;
 @property (weak, nonatomic) IBOutlet UIView *emptyView;
 @property (weak, nonatomic) IBOutlet UIButton *exploreButton;
+@property (weak, nonatomic) IBOutlet UIView *tableView;
 @end
 
 @implementation ViewController {
+    
+    
     GMSPlacePicker *_placePicker;
     GMSMapView *mapView_;
 
@@ -32,6 +36,7 @@
     CLLocationCoordinate2D center;
     CLLocationCoordinate2D northEast;
     CLLocationCoordinate2D southWest;
+    CLLocationCoordinate2D destination;
     NSString *ServerIP;
     AFHTTPRequestOperationManager *AFmanager;
     NSString *placeName;
@@ -75,11 +80,13 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"viewillappear called");
     if (isEmpty) {
         [latestTweetSet removeAllObjects];
         isEmpty = false;
     }
     else {
+        NSLog(@"loadmoredata called");
         [self loadMoreData];
     }
 }
@@ -96,6 +103,31 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"didFailWithError: %@", error);
+}
+
+- (IBAction)onGetDirectionsButtonPressed:(id)sender {
+
+    
+    if ([[UIApplication sharedApplication] canOpenURL:
+         [NSURL URLWithString:@"comgooglemaps://"]]) {
+        
+        NSMutableString *GETAddress = [NSMutableString string];
+        [GETAddress appendString:@"comgooglemaps://?saddr="];
+        [GETAddress appendString:[[NSString alloc] initWithFormat:@"%f", center.latitude]];
+        [GETAddress appendString:@","];
+        [GETAddress appendString:[[NSString alloc] initWithFormat:@"%f", center.longitude]];
+        [GETAddress appendString:@"&daddr="];
+        [GETAddress appendString:[[NSString alloc] initWithFormat:@"%f", destination.latitude]];
+        [GETAddress appendString:@","];
+        [GETAddress appendString:[[NSString alloc] initWithFormat:@"%f", destination.longitude]];
+        [GETAddress appendString:@"&directionsmode=walking"];
+        
+        [[UIApplication sharedApplication] openURL:
+         [NSURL URLWithString:GETAddress]];
+    } else {
+        NSLog(@"Can't use comgooglemaps://");
+        
+    }
 }
 
 // Updates instance variables containing location coordinates
@@ -371,9 +403,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([latestTweetSet count] == 0) {
         self.emptyView.hidden = false;
-        self.tweetsTableView.hidden = true;
+        self.tableView.hidden = true;
     } else {
-        self.tweetsTableView.hidden = false;
+        self.tableView.hidden = false;
         self.emptyView.hidden = true;
     }
     return [latestTweetSet count];
@@ -405,12 +437,16 @@
 }
 
 // Implement the delegate methods for MapViewControllerDelegate
-- (void)MapViewController:(MapViewController *)viewController didSelectPlaceName:(NSString *)name {
+- (void)MapViewController:(MapViewController *)viewController didSelectPlaceName:(NSString *)name :(CLLocationCoordinate2D)dest {
     NSLog(@"placeName delegate method called");
     // Set place name
+    [self.navigationController setTitle:name];
     name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
     placeName = name;
     isEmpty = false;
+    noMoreData = false;
+    destination = dest;
+    [latestTweetSet removeAllObjects];
     NSLog(@"%@", placeName);
     // ...then dismiss the child view controller
     [self.navigationController popViewControllerAnimated:YES];

@@ -25,7 +25,7 @@
 @protocol MapViewControllerDelegate <NSObject>
 
 - (void)MapViewController:(MapViewController*)viewController
-             didSelectPlaceName:(NSString *)name;
+             didSelectPlaceName:(NSString *)name :(CLLocationCoordinate2D)dest;
 - (void)didPressBackButton:(MapViewController*)viewController;
 
 @end

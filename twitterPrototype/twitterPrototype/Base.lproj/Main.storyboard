@@ -400,7 +400,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGO-6F-b84">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGO-6F-b84" userLabel="Table View">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="136" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Au1-No-XzZ" userLabel="Tweets Table View">
@@ -556,12 +556,14 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hmh-T3-lBj">
                                         <rect key="frame" x="528" y="480" width="48" height="48"/>
                                         <animations/>
-                                        <color key="backgroundColor" red="0.90318267617449521" green="0.10258494127516693" blue="0.17197986577181104" alpha="0.74779094827586212" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="48" id="F6V-Xr-IdF"/>
                                             <constraint firstAttribute="height" constant="48" id="auq-nk-BwO"/>
                                         </constraints>
                                         <state key="normal" image="get_directions_icon.png"/>
+                                        <connections>
+                                            <action selector="onGetDirectionsButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hLT-UM-TXH"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <animations/>
@@ -629,6 +631,7 @@
                     <connections>
                         <outlet property="emptyView" destination="YbM-z2-2F0" id="Wbx-8f-QJE"/>
                         <outlet property="exploreButton" destination="fcZ-Fr-evN" id="Nv2-hJ-ZDx"/>
+                        <outlet property="tableView" destination="eGO-6F-b84" id="ybm-MX-fCT"/>
                         <outlet property="tweetsTableView" destination="Au1-No-XzZ" id="GcD-un-7TN"/>
                         <segue destination="dxd-26-cj6" kind="show" identifier="WebViewSegue" id="k02-8i-oCA"/>
                         <segue destination="Q4p-cn-KkE" kind="show" identifier="MapViewSegue" id="Eir-hP-eOR"/>
